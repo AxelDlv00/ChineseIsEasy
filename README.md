@@ -88,14 +88,14 @@ This tool was originally built to help me structure my Mandarin learning through
 
 **Main features:**
 
-* Automatically creates a deck with **15 000 of the most frequent Chinese words**, you can download it directly as [`DictWords.apkg`](./AnkiWords/DictWords.apkg) without understanding the code.
+* Automatically creates a deck with **15 000 of the most frequent Chinese words**, you can download it directly as [`DictWords.apkg`](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.0) without understanding the code.
 * Includes **simplified/traditional forms**, **pinyin with tones**, **French explanations**, **example sentences**, and **stroke animations**
 
 **Quick use (no coding required):**
 
 1. Install [Anki](https://apps.ankiweb.net/)
-2. Download the ready-made deck [`DictWords.apkg`](./AnkiWords/DictWords.apkg)
-3. In Anki, go to **File → Import...**, select the file, and start learning 
+2. Download the ready-made deck [`DictWords.apkg`](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.0)
+3. In Anki, go to **File → Import...**, select the file, and start learning
 
 <p align="center">
   <img src="./AnkiWords/assets/anki_categories.jpg" alt="Anki categories preview" width="280" style="margin-right:10px;"/>
