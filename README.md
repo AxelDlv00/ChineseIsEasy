@@ -3,6 +3,21 @@
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![GitHub Repo](https://img.shields.io/badge/Repo-ChineseIsEasy-brightgreen.svg)](https://github.com/AxelDlv00/ChineseIsEasy)
 
+# Table of Contents
+
+- [🐉 ChineseIsEasy — Tools to Learn Chinese Efficiently](#-chineseiseasy--tools-to-learn-chinese-efficiently)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Repositories](#repositories)
+    - [RandomConversation — Practice "French → Chinese" Translation with Real Dialogues](#randomconversation--practice-french--chinese-translation-with-real-dialogues)
+      - [How I Use It to Learn Chinese](#how-i-use-it-to-learn-chinese)
+      - [Example Workflow](#example-workflow)
+    - [AnkiWords - Anki FlashCard by Word Frequency](#ankiwords---anki-flashcard-by-word-frequency)
+    - [HSKWords — Structured Anki Decks by HSK Level](#hskwords--structured-anki-decks-by-hsk-level)
+- [License](#license)
+- [Author](#author)
+
+# Introduction
 I’m a French learner of Mandarin, and I created **ChineseIsEasy** as a collection of small, practical tools to help me learn Chinese more efficiently. These tools were originally designed for personal use, but I’ve decided to make some of them open source to help others who share the same journey.
 
 Each tool focuses on a different aspect of language learning — vocabulary building, conversation practice, or translation refinement.  
@@ -11,7 +26,7 @@ Most scripts are optimized for **French → Chinese** learning, but can easily b
 > ⚠️ I do not guarantee perfect accuracy of translations or code maintenance.  
 > These tools are meant for experimentation and self-study.
 
-## Repositories
+# Repositories
 
 ### [RandomConversation](./RandomConversations/) — Practice "French → Chinese" Translation with Real Dialogues
 
@@ -104,11 +119,36 @@ This tool was originally built to help me structure my Mandarin learning through
 
 <p align="center"><em>Left: deck organized by category — Right: sample card with stroke animation</em></p>
 
-## License
+### [HSKWords](./HSKWords/) — Structured Anki Decks by HSK Level
+
+`HSKWords` extends the *ChineseIsEasy* project to the official **HSK vocabulary lists**, generating structured **Anki decks by HSK level and chapter** (currently HSK 3 and HSK 5).
+
+It merges the official HSK datasets with the richer vocabulary database produced by [AnkiWords](./AnkiWords/), automatically enriching each word with:
+
+* Simplified and Traditional forms
+* Pinyin (auto-generated if missing)
+* Short French meaning
+* Example sentences (from HSK and extended corpora)
+* Animated stroke order for each character
+
+**Quick use (no coding required):**
+
+1. Install [Anki](https://apps.ankiweb.net/)
+2. Download the ready-made deck [`DictHSK.apkg`](https://github.com/AxelDlv00/ChineseIsEasy/releases)
+3. In Anki, go to **File → Import...**, and start studying HSK vocabulary interactively
+
+<p align="center">
+  <img src="./AnkiHSK/assets/anki_screenshot.jpg" alt="HSK deck preview" width="280" style="margin-right:10px;"/>
+  <img src="./AnkiHSK/assets/anki_example.gif" alt="HSK card example" width="280"/>
+</p>
+
+<p align="center"><em>Left: HSK deck structure — Right: sample card with stroke animation</em></p>
+
+# License
 
 Released under the [**MIT License**](./LICENSE).  
 Free for educational, research, and personal use.
 
-## Author
+# Author
 
 **Axel Delaval (陈安思)**
