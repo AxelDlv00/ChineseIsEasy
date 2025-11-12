@@ -74,7 +74,7 @@ ChineseIsEasy-HSKWords/
 You only need a few dependencies:
 
 ```bash
-pip install pandas genanki pypinyin
+pip install pandas genanki pypinyin pyarrow fastparquet
 ```
 
 ### Data Preparation
