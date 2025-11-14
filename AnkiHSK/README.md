@@ -23,12 +23,12 @@ It focuses on generating an **Anki deck of HSK vocabulary**, enriched with conte
 
 ## Overview
 
-`HSKWords` automatically builds an **interactive Anki package (`DictHSK.apkg`)** that groups Chinese words by **HSK level and chapter**.
+`HSKWords` automatically builds an **interactive Anki package (`ChineseIsEasy-HSK.apkg`)** that groups Chinese words by **HSK level and chapter**.
 
 
 <p align="center">
-  <img src="assets/anki_screenshot.jpg" alt="Anki categories preview" width="280" style="margin-right:10px;"/>
-  <img src="assets/anki_example.gif" alt="Anki card example" width="280"/>
+  <img src="assets/anki_screenshot.jpg" alt="Anki categories preview" height="280" style="margin-right:10px;"/>
+  <img src="assets/anki_example.gif" alt="Anki card example" height="280"/>
 </p>
 
 Each card includes:
@@ -43,10 +43,10 @@ It uses existing data from `AnkiWords` to enrich the official HSK lists. Therefo
 
 ## Usage (if you don't want to run the code yourself)
 
-You can directly use the [Anki deck file](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.0) generated with this tool — **no coding required**.
+You can directly use the [Anki deck file](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.3) generated with this tool — **no coding required**.
 
 1. **Install [Anki](https://apps.ankiweb.net/)** (available on Windows, macOS, and Linux). On android/IOS there is also AnkiDroid/AnkiMobile apps.
-2. Download the file [`DictHSK.apkg`](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.0).
+2. Download the file [`ChineseIsEasy-HSK.apkg`](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.3).
 3. In Anki, go to **File → Import...** and select the `.apkg` file.
 
 Once imported, you can immediately start reviewing and customizing the deck to your study style.
