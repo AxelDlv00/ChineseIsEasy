@@ -103,18 +103,18 @@ This tool was originally built to help me structure my Mandarin learning through
 
 **Main features:**
 
-* Automatically creates a deck with **15 000 of the most frequent Chinese words**, you can download it directly as [`DictWords.apkg`](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.0) without understanding the code.
+* Automatically creates a deck with **15 000 of the most frequent Chinese words**, you can download it directly as [`ChineseIsEasy-WordsByFrequency.apkg`](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.3) without understanding the code.
 * Includes **simplified/traditional forms**, **pinyin with tones**, **French explanations**, **example sentences**, and **stroke animations**
 
 **Quick use (no coding required):**
 
 1. Install [Anki](https://apps.ankiweb.net/)
-2. Download the ready-made deck [`DictWords.apkg`](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.0)
+2. Download the ready-made deck [`ChineseIsEasy-WordsByFrequency.apkg`](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.3)
 3. In Anki, go to **File → Import...**, select the file, and start learning
 
 <p align="center">
-  <img src="./AnkiWords/assets/anki_categories.jpg" alt="Anki categories preview" width="280" style="margin-right:10px;"/>
-  <img src="./AnkiWords/assets/anki_example.gif" alt="Anki card example" width="280"/>
+  <img src="./AnkiWords/assets/anki_categories.jpg" alt="Anki categories preview" height="280" style="margin-right:10px;"/>
+  <img src="./AnkiWords/assets/anki_example.gif" alt="Anki card example" height="280"/>
 </p>
 
 <p align="center"><em>Left: deck organized by category — Right: sample card with stroke animation</em></p>
@@ -134,12 +134,12 @@ It merges the official HSK datasets with the richer vocabulary database produced
 **Quick use (no coding required):**
 
 1. Install [Anki](https://apps.ankiweb.net/)
-2. Download the ready-made deck [`DictHSK.apkg`](https://github.com/AxelDlv00/ChineseIsEasy/releases)
+2. Download the ready-made deck [`ChineseIsEasy-HSK.apkg`](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.3)
 3. In Anki, go to **File → Import...**, and start studying HSK vocabulary interactively
 
 <p align="center">
-  <img src="./AnkiHSK/assets/anki_screenshot.jpg" alt="HSK deck preview" width="280" style="margin-right:10px;"/>
-  <img src="./AnkiHSK/assets/anki_example.gif" alt="HSK card example" width="280"/>
+  <img src="./AnkiHSK/assets/anki_screenshot.jpg" alt="HSK deck preview" height="280" style="margin-right:10px;"/>
+  <img src="./AnkiHSK/assets/anki_example.gif" alt="HSK card example" height="280"/>
 </p>
 
 <p align="center"><em>Left: HSK deck structure — Right: sample card with stroke animation</em></p>

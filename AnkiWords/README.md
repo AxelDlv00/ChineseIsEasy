@@ -25,10 +25,10 @@ This repository focuses on generating **structured Chinese vocabulary cards for 
 
 ## Usage (if you don't want to run the code yourself)
 
-You can directly use the [Anki deck file](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.0) generated with this tool — **no coding required**.
+You can directly use the [Anki deck file](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.3) generated with this tool — **no coding required**.
 
 1. **Install [Anki](https://apps.ankiweb.net/)** (available on Windows, macOS, and Linux). On android/IOS there is also AnkiDroid/AnkiMobile apps.
-2. Download the file [`DictWords.apkg`](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.0).
+2. Download the file [`ChineseIsEasy-WordsByFrequency.apkg`](https://github.com/AxelDlv00/ChineseIsEasy/releases/tag/v1.3).
 3. In Anki, go to **File → Import...** and select the `.apkg` file.
 
 The deck contains **15,000 of the most frequent Chinese words**, each with:
@@ -41,7 +41,7 @@ The deck contains **15,000 of the most frequent Chinese words**, each with:
 
 Once imported, you can immediately start reviewing and customizing the deck to your study style.
 
-<p align="center"> <img src="assets/anki_categories.jpg" alt="Anki categories preview" width="300" style="margin-right:10px;"/> <img src="assets/anki_example.gif" alt="Anki card example" width="300"/> </p> <p align="center"><em>Left: deck organized by category — Right: sample card with stroke animation</em></p>
+<p align="center"> <img src="assets/anki_categories.jpg" alt="Anki categories preview" height="300" style="margin-right:10px;"/> <img src="assets/anki_example.gif" alt="Anki card example" height="300"/> </p> <p align="center"><em>Left: deck organized by category — Right: sample card with stroke animation</em></p>
 
 ## Required Setup (if you want to run it yourself)
 
