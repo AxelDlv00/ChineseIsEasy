@@ -41,7 +41,11 @@ The deck contains **15,000 of the most frequent Chinese words**, each with:
 
 Once imported, you can immediately start reviewing and customizing the deck to your study style.
 
-<p align="center"> <img src="assets/anki_categories.jpg" alt="Anki categories preview" height="300" style="margin-right:10px;"/> <img src="assets/anki_example.gif" alt="Anki card example" height="300"/> </p> <p align="center"><em>Left: deck organized by category — Right: sample card with stroke animation</em></p>
+<p align="center">
+<img src="assets/anki_categories.jpg" alt="Anki categories preview" height="300" style="width:auto; object-fit:contain;"/> 
+<img src="assets/anki_example.gif" alt="Anki card example" height="300" style="width:auto; object-fit:contain;"/> </p> 
+<p align="center">
+<em>Left: deck organized by category — Right: sample card with stroke animation</em></p>
 
 ## Required Setup (if you want to run it yourself)
 

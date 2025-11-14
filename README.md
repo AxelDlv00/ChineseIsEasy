@@ -113,8 +113,11 @@ This tool was originally built to help me structure my Mandarin learning through
 3. In Anki, go to **File → Import...**, select the file, and start learning
 
 <p align="center">
-  <img src="./AnkiWords/assets/anki_categories.jpg" alt="Anki categories preview" height="280" style="margin-right:10px;"/>
-  <img src="./AnkiWords/assets/anki_example.gif" alt="Anki card example" height="280"/>
+  <img src="./AnkiWords/assets/anki_categories.jpg"
+     alt="Anki categories preview"
+     height="280"
+     style="width:auto; object-fit:contain;"/>
+  <img src="./AnkiWords/assets/anki_example.gif" alt="Anki card example" height="280" style="width:auto; object-fit:contain;"/>
 </p>
 
 <p align="center"><em>Left: deck organized by category — Right: sample card with stroke animation</em></p>
@@ -138,8 +141,8 @@ It merges the official HSK datasets with the richer vocabulary database produced
 3. In Anki, go to **File → Import...**, and start studying HSK vocabulary interactively
 
 <p align="center">
-  <img src="./AnkiHSK/assets/anki_screenshot.jpg" alt="HSK deck preview" height="280" style="margin-right:10px;"/>
-  <img src="./AnkiHSK/assets/anki_example.gif" alt="HSK card example" height="280"/>
+  <img src="./AnkiHSK/assets/anki_screenshot.jpg" alt="HSK deck preview" height="280" style="width:auto; object-fit:contain;"/>
+  <img src="./AnkiHSK/assets/anki_example.gif" alt="HSK card example" height="280" style="width:auto; object-fit:contain;"/>
 </p>
 
 <p align="center"><em>Left: HSK deck structure — Right: sample card with stroke animation</em></p>

@@ -27,8 +27,8 @@ It focuses on generating an **Anki deck of HSK vocabulary**, enriched with conte
 
 
 <p align="center">
-  <img src="assets/anki_screenshot.jpg" alt="Anki categories preview" height="280" style="margin-right:10px;"/>
-  <img src="assets/anki_example.gif" alt="Anki card example" height="280"/>
+  <img src="assets/anki_screenshot.jpg" alt="Anki categories preview" height="280" style="width:auto; object-fit:contain;"/>
+  <img src="assets/anki_example.gif" alt="Anki card example" height="280" style="width:auto; object-fit:contain;"/>
 </p>
 
 Each card includes:

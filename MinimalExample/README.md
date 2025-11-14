@@ -17,7 +17,7 @@ This example shows how to display stroke-order animations for the characters `ä¸
 `/Applications/Anki.app/Contents/MacOS/launcher`.)
 
 <p align="center">
-  <img src="assets/minimal_example.gif" alt="Anki card example" width="600"/>
+  <img src="assets/minimal_example.gif" alt="Anki card example" width="600" style="width:auto; object-fit:contain;"/>
 </p>
 
 ## Problems with earlier approaches
