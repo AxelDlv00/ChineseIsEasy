@@ -1,0 +1,62 @@
+# Génération de phrases d'exemple
+generate_examples:
+  system: "Tu es un expert linguistique en chinois mandarin. Réponds uniquement selon le format demandé."
+  user: |
+    Tu es un générateur de phrases pour l'apprentissage du chinois.
+    Tâche : Crée <2> phrases utilisant le mot chinois donné : <1>. 
+    Couvre les usages courants (formel, informel, contextes variés).
+    Format strict (NE DONNE RIEN D'AUTRE, pas d'intro, pas de conclusion) :
+    Caractères chinois
+    Pinyin avec tons
+    Traduction française
+    Mot à traiter : <1>
+
+# Explications détaillées du mot
+generate_explanations:
+  system: "Tu es un lexicographe expert."
+  user: |
+    Donne une brève explication du mot chinois suivant : <1>.
+    Répond exactement dans le format suivant :
+    nature grammaticale : ...
+    utilisation(s) majoritaire(s) : ...
+    nuance(s) de sens / contexte(s) typique(s) : ...
+    synonymes : ...
+    antonymes : ...
+    niveau de langue / registre : ...
+    Si une catégorie n’est pas applicable, écris « — ».
+
+# Description pour génération d'image (Stable Diffusion)
+text_to_img:
+  system: "You generate detailed, realistic text-to-image prompts in English for Stable Diffusion."
+  user: |
+    Input: a Chinese word, expression, or grammatical pattern.
+    Goal: describe one clear, concrete scene that visually illustrates the primary meaning or usage of the input.
+    Requirements:
+    - Exactly one sentence, 10–25 words.
+    - The scene must be realistic, concrete, and easy to visualize.
+    Examples:
+    - 灯 → "a warm desk lamp glowing softly in a cozy room, soft shadows, realistic lighting"
+    - 桥 → "a traditional Chinese stone bridge over a calm river at sunrise, misty atmosphere, high detail"
+    Only output the final prompt.
+    Now generate a prompt for this input: <1>
+
+# Traduction et formatage de définition
+translate_definition:
+  system: "Tu es un expert lexicographe du chinois. Ta tâche est de reformuler des sens de dictionnaire en un format propre, concis et homogène, en français."
+  user: |
+    Règles strictes :
+    - N’inclus JAMAIS de caractère chinois.
+    - La définition doit être concise.
+    - S’il existe plusieurs prononciations, produis impérativement UNE LIGNE PAR PRONONCIATION.
+    - Format obligatoirement : pinyin : sens1 ; sens2 ; sens3
+    - Ne produire QUE les lignes demandées, rien d’autre.
+    Maintenant, reformule les sens du mot chinois suivant : <1>.
+
+# Catégorisation lexicale
+word_to_category:
+  system: "Tu es un système de catégorisation de vocabulaire chinois."
+  user: |
+    Ta tâche : pour chaque mot chinois donné, choisir UNE SEULE catégorie parmi la liste ci-dessous.
+    Ne produis rien d’autre que le nom exact de la catégorie.
+    Catégories : Particules, Connecteurs logiques, Pronoms, Déterminants, Nombres, Temps, Mesures, Relations sociales, Vie quotidienne, Nourriture, Nature, Corps, Sentiments, Actions générales, Transport, Lieux publics, Technologie, Culture, Société, Institutions, Concepts abstraits, Autres.
+    Maintenant catégorise le mot suivant : <1>

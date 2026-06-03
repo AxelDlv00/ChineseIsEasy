@@ -1,0 +1,25 @@
+{
+  "tone-practice": {
+    "deck_root": "ChineseIsEasy::TonePairs",
+    "dataset_filter": {
+      "field": "SetsItBelongsTo",
+      "value": "SUBTLEX-CH",
+      "limit": 10000
+    },
+    "grouping": {
+      "strategy": "dynamic" 
+    },
+    "metadata_badges": ["Computed_AtonalPinyin"],
+    "fields_mapping": {
+      "Word": "Word",
+      "Traditional": "Traditionnel",
+      "Pinyin": "Pinyin",
+      "Meaning": "Signification",
+      "Explanation": "Explication",
+      "Audio": "hf_audio_word",
+      "Image": "hf_img_optim",
+      "Examples": "hf_examples_json",
+      "AtonalPinyin": "Computed_AtonalPinyin"
+    }
+  }
+}

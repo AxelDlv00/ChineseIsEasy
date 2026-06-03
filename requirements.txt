@@ -1,0 +1,20 @@
+# Core scientific stack (Python 3.10 compatible)
+numpy==1.26.4
+pandas==2.2.2
+pyarrow==15.0.2
+fastparquet==2024.2.0
+
+# Chinese utilities
+pypinyin==0.55.0
+gTTS==2.5.4
+
+# Anki generation
+genanki==0.13.1
+
+# General utilities
+requests==2.32.3
+PyYAML==6.0.1
+charset-normalizer==3.3.2
+idna==3.7
+urllib3==2.2.1
+certifi==2024.7.4

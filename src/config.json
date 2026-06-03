@@ -1,0 +1,98 @@
+{
+  "base-example": {
+    "deck_root": "ChineseIsEasy::Dictionary",
+    "dataset_filter": {
+      "field": "SetsItBelongsTo",
+      "value": "SUBTLEX-CH",
+      "sort_by": "WCount",
+      "limit": 5000
+    },
+    "grouping": {
+      "strategy": "field",
+      "field": "Catégorie",
+      "default_group": "Divers"
+    },
+    "metadata_badges": ["Frequency", "Category"],
+    "fields_mapping": {
+      "Word": "Word",
+      "Traditional": "Traditionnel",
+      "Pinyin": "Pinyin",
+      "Meaning": "Signification",
+      "Explanation": "Explication",
+      "Image": "hf_img_optim",
+      "Audio": "hf_audio_word",
+      "Examples": "hf_examples_json"
+    }
+  },
+  "tone-practice": {
+    "deck_root": "ChineseIsEasy::TonePairs",
+    "dataset_filter": {
+      "field": "SetsItBelongsTo",
+      "value": "SUBTLEX-CH",
+      "limit": 5000
+    },
+    "grouping": {
+      "strategy": "dynamic" 
+    },
+    "metadata_badges": ["Computed_AtonalPinyin"],
+    "fields_mapping": {
+      "Word": "Word",
+      "Traditional": "Traditionnel",
+      "Pinyin": "Pinyin",
+      "Meaning": "Signification",
+      "Explanation": "Explication",
+      "Audio": "hf_audio_word",
+      "Image": "hf_img_optim",
+      "Examples": "hf_examples_json",
+      "AtonalPinyin": "Computed_AtonalPinyin"
+    }
+  },
+  "poetry": {
+    "deck_root": "ChineseIsEasy::Poetry",
+    "dataset_filter": {
+      "field": "SetsItBelongsTo",
+      "value": "Poems"
+    },
+    "grouping": {
+      "strategy": "field",
+      "field": "Computed_Author",
+      "default_group": "Anonyme"
+    },
+    "metadata_badges": ["Computed_Author", "Category"],
+    "fields_mapping": {
+      "Word": "Word",
+      "Traditional": "Traditionnel",
+      "Pinyin": "Pinyin",
+      "Meaning": "Signification",
+      "Explanation": "Explication",
+      "Image": "hf_img_optim",
+      "Audio": "hf_audio_word",
+      "Author": "Computed_Author",
+      "Examples": "hf_examples_json"
+    }
+  },
+  "chengyu-block": {
+    "deck_root": "ChineseIsEasy::Chengyu",
+    "dataset_filter": {
+      "field": "SetsItBelongsTo",
+      "value": "Chengyu",
+      "limit": 500
+    },
+    "grouping": {
+      "strategy": "chunk",
+      "size": 50,
+      "prefix": "Bloc"
+    },
+    "metadata_badges": ["Category"],
+    "fields_mapping": {
+      "Word": "Word",
+      "Traditional": "Traditionnel",
+      "Pinyin": "Pinyin",
+      "Meaning": "Signification",
+      "Explanation": "Explication",
+      "Image": "hf_img_optim",
+      "Audio": "hf_audio_word",
+      "Examples": "hf_examples_json"
+    }
+  }
+}

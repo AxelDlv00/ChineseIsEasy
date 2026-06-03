@@ -1,0 +1,9 @@
+*secrets*
+*.apkg
+*.DS_Store
+*.env
+output.txt
+*.RepoToPromptignore
+src/__pycache__/
+src/build_media_tmp
+src/ChineseIsEasy_Master
