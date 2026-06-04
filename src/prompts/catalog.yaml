@@ -60,3 +60,35 @@ word_to_category:
     Ne produis rien d’autre que le nom exact de la catégorie.
     Catégories : Particules, Connecteurs logiques, Pronoms, Déterminants, Nombres, Temps, Mesures, Relations sociales, Vie quotidienne, Nourriture, Nature, Corps, Sentiments, Actions générales, Transport, Lieux publics, Technologie, Culture, Société, Institutions, Concepts abstraits, Autres.
     Maintenant catégorise le mot suivant : <1>
+
+# CSV minimal pour compléter les cartes MyLists introuvables dans Anki
+mylist_fallback_csv:
+  system: "Tu es un lexicographe expert du chinois mandarin pour apprenants francophones. Réponds uniquement avec un CSV valide."
+  user: |
+    Je vais te donner une liste de mots ou expressions en chinois qui manquent dans mon deck Anki.
+
+    Tâche :
+    - Produis uniquement un CSV séparé par des points-virgules.
+    - Utilise exactement cet en-tête :
+      "Word";"Traditional";"Pinyin";"Meaning";"Explanation";"Examples";"Category";"Frequency";"Image";"Audio"
+    - Mets chaque champ entre guillemets doubles.
+    - Échappe les guillemets internes en les doublant.
+    - Ne produis aucun texte avant ou après le CSV.
+    - Laisse "Image" et "Audio" vides.
+    - "Traditional" doit contenir la forme traditionnelle si elle diffère, sinon la même forme que "Word".
+    - "Pinyin" doit contenir les tons avec chiffres ou accents, de façon cohérente.
+    - "Meaning" doit être une définition française courte.
+    - "Explanation" doit être une explication pédagogique en français, avec nature grammaticale, usages typiques, nuances, synonymes/antonymes si utile.
+    - "Examples" doit être un JSON compact, sur une seule ligne, avec exactement 2 objets :
+      [{"ch":"PHRASE_CHINOISE","py":"PINYIN","fr":"TRADUCTION_FRANCAISE"},{"ch":"PHRASE_CHINOISE","py":"PINYIN","fr":"TRADUCTION_FRANCAISE"}]
+    - N'utilise pas de HTML dans "Examples". Le script Anki générera le HTML lui-même.
+    - "Category" doit être une seule catégorie parmi :
+      Particules, Connecteurs logiques, Pronoms, Déterminants, Nombres, Temps, Mesures, Relations sociales, Vie quotidienne, Nourriture, Nature, Corps, Sentiments, Actions générales, Transport, Lieux publics, Technologie, Culture, Société, Institutions, Concepts abstraits, Autres.
+    - "Frequency" peut rester vide si tu n'as pas de donnée fiable.
+
+    Exemple de sortie pour un seul mot :
+    "Word";"Traditional";"Pinyin";"Meaning";"Explanation";"Examples";"Category";"Frequency";"Image";"Audio"
+    "背诵";"背誦";"bèi sòng";"réciter de mémoire ; apprendre par coeur";"Verbe. S'utilise pour parler de réciter un texte, une leçon, un poème ou une formule après mémorisation. Nuance scolaire ou académique fréquente. Synonymes proches : 朗诵, 记诵. Antonyme contextuel : 忘记.";"[{""ch"":""我每天背诵十个新单词。"",""py"":""Wǒ měitiān bèisòng shí gè xīn dāncí."",""fr"":""Je récite dix nouveaux mots chaque jour.""},{""ch"":""这首诗很短，容易背诵。"",""py"":""Zhè shǒu shī hěn duǎn, róngyì bèisòng."",""fr"":""Ce poème est court et facile à apprendre par coeur.""}]";"Actions générales";"";"";""
+
+    Liste à traiter :
+    <1>

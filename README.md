@@ -77,6 +77,51 @@ The `anki_generator.py` file is the main script that ties everything together an
 
 > Note : If you use this code, some of the files (mostly the shared JS and CSS files for Anki) are extracted from our [HuggingFace Repo](https://huggingface.co/datasets/AxelDlv00/ChineseIsEasy). 
 
+## Weekly Personal Lists
+
+If you already imported and synced the full `ChineseIsEasy::Dictionary` deck in Anki, you can build small media-free personal decks without loading the Hugging Face dataset again.
+
+`src/make_mylist_apkg.py` reads your local synced Anki collection, copies the existing ChineseIsEasy note fields for the requested words, and exports a tiny deck under `MyLists/<name>/<name>.apkg`.
+
+Example:
+
+```bash
+python src/make_mylist_apkg.py --file MyLists/week-2026-06-03
+```
+
+With inline words:
+
+```bash
+python src/make_mylist_apkg.py week-2026-06-03 理解 背诵 有用 语言 方式 思考 千万 犯错
+```
+
+On macOS, Anki profiles are usually stored under `~/Library/Application Support/Anki2/<profile>/collection.anki2`, not `/Library/Application Support`. The script auto-selects the `ChineseIsEasy` profile when it exists. You can also pass the collection explicitly:
+
+```bash
+python src/make_mylist_apkg.py week-2026-06-03 --collection "$HOME/Library/Application Support/Anki2/ChineseIsEasy/collection.anki2" 理解 背诵
+```
+
+The generated APKG intentionally contains no media files. It keeps references like `[sound:...]` and `<img src="...">`, so audio and images work only in Anki collections where the original ChineseIsEasy media has already been synced.
+
+If some words are missing from your local Anki collection, the script still exports the cards it found and prints the missing list. Use the `mylist_fallback_csv` prompt in `src/prompts/catalog.yaml` with those missing words, then save the AI output next to the list with the same name and a `.csv` extension:
+
+```bash
+MyLists/week-2026-06-03
+MyLists/week-2026-06-03.csv
+```
+
+Run the same command again. The script automatically loads the sibling CSV and creates fallback cards for the missing words. The CSV must use semicolon separators and quoted fields:
+
+```csv
+"Word";"Traditional";"Pinyin";"Meaning";"Explanation";"Examples";"Category";"Frequency";"Image";"Audio"
+```
+
+You can also paste CSV rows directly into the word-list file. Plain lines are treated as words; semicolon CSV lines are treated as full fallback card rows.
+
+For fallback CSV rows, `Examples` should contain the JSON format produced by the `mylist_fallback_csv` prompt. The script converts that JSON into the same clickable example HTML used by Dictionary cards. Older fallback rows that contain AI-generated `sentence-container` HTML are repaired automatically when possible.
+
+AnkiWeb cannot be used as a remote card or media server from inside an APKG. This script uses your local Anki collection as the source of truth instead.
+
 ## Generation Pipeline
 
 1. **Linguistic Enrichment:** Batch processing via **GPT-4o-mini** for pedagogical categories and grammatical explanations.
