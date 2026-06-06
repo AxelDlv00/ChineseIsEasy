@@ -59,7 +59,7 @@ def default_collection_path():
 
 
 def default_output_dir():
-    return Path(__file__).resolve().parents[1] / "MyLists"
+    return Path(__file__).resolve().parents[1] / "mylists"
 
 
 def stable_id(text):
@@ -78,28 +78,45 @@ def parse_csv_line(line):
     return next(csv.reader([line], delimiter=";", quotechar='"'))
 
 
-def normalize_csv_row(row):
+def normalize_csv_row(row, media_dir=None, generate_audio=False):
     normalized = {field: row.get(field, "").strip() for field in FALLBACK_FIELDS}
     if not normalized["Word"]:
         raise ValueError("CSV row is missing required Word field")
     if not normalized["Traditional"]:
         normalized["Traditional"] = normalized["Word"]
-    normalized["Examples"] = format_fallback_examples(normalized["Examples"])
+    if generate_audio and not normalized["Audio"]:
+        audio_filename = generate_tts_audio(normalized["Word"], media_dir, "word")
+        if audio_filename:
+            normalized["Audio"] = f"[sound:{audio_filename}]"
+    normalized["Examples"] = format_fallback_examples(normalized["Examples"], media_dir, generate_audio)
     return normalized
 
 
-def format_fallback_examples(examples):
+def format_fallback_examples(examples, media_dir=None, generate_audio=False):
     parsed_examples = parse_fallback_examples(examples)
     if not parsed_examples:
         return examples
 
     blocks = []
+    hidden_audio = []
     for example in parsed_examples:
+        index = len(blocks)
         chinese = html.escape(example.get("ch", "").strip())
         pinyin = html.escape(example.get("py", "").strip())
         french = html.escape(example.get("fr", "").strip())
         if not chinese:
             continue
+        audio_html = ""
+        if generate_audio:
+            audio_filename = generate_tts_audio(strip_tags(example.get("ch", "")), media_dir, "ex")
+            if audio_filename:
+                audio_div_id = f"sent_aud_{index}_{stable_guid(example.get('ch', ''))}"
+                audio_html = (
+                    f'<div class="sentence-right" onclick="event.stopPropagation(); playExAudio(\'{audio_div_id}\')">'
+                    "Audio"
+                    "</div>"
+                )
+                hidden_audio.append(f'<div id="{audio_div_id}" class="hidden-audio">[sound:{audio_filename}]</div>')
         blocks.append(
             '<div class="sentence-container">'
             '<div class="sentence-left" onclick="toggleReveal(this)">'
@@ -109,9 +126,38 @@ def format_fallback_examples(examples):
             f'<div class="reveal-fr">{french}</div>'
             "</div>"
             "</div>"
+            f"{audio_html}"
             "</div>"
         )
-    return "".join(blocks)
+    return "".join(blocks + hidden_audio)
+
+
+def generate_tts_audio(text, media_dir, prefix):
+    text = strip_tags(text)
+    if not text or not media_dir:
+        return None
+
+    try:
+        from gtts import gTTS
+    except ModuleNotFoundError as error:
+        raise SystemExit(
+            "Missing dependency: gTTS. Install the repository dependencies first:\n"
+            "python -m pip install -r requirements.txt"
+        ) from error
+
+    media_path = Path(media_dir)
+    media_path.mkdir(parents=True, exist_ok=True)
+    filename = f"cie_mylist_{prefix}_{stable_guid(text)}.mp3"
+    output_path = media_path / filename
+    if output_path.exists():
+        return filename
+
+    try:
+        gTTS(text=text, lang="zh").save(str(output_path))
+    except Exception as error:
+        print(f"Warning: could not generate gTTS audio for {text}: {error}", file=sys.stderr)
+        return None
+    return filename
 
 
 def parse_fallback_examples(examples):
@@ -175,7 +221,7 @@ def strip_tags(value):
     return html.unescape(re.sub(r"<[^>]+>", "", value)).strip()
 
 
-def read_csv_rows(csv_path):
+def read_csv_rows(csv_path, media_dir=None, generate_audio=False):
     path = Path(csv_path).expanduser()
     if not path.exists():
         return []
@@ -190,7 +236,7 @@ def read_csv_rows(csv_path):
             raise ValueError(f"{path} is missing CSV columns: {', '.join(missing_columns)}")
         for row in reader:
             if row and any(value for value in row.values() if value):
-                rows.append(normalize_csv_row(row))
+                rows.append(normalize_csv_row(row, media_dir, generate_audio))
     return rows
 
 
@@ -200,15 +246,28 @@ def sibling_csv_path(list_file):
     return Path(list_file).expanduser().with_suffix(".csv")
 
 
-def read_words_and_fallbacks(raw_items, list_file, fallback_csv):
+def resolve_list_file(list_file):
+    if not list_file:
+        return None
+    path = Path(list_file).expanduser()
+    if path.exists():
+        return path
+    if not path.suffix:
+        txt_path = path.with_suffix(".txt")
+        if txt_path.exists():
+            return txt_path
+    return path
+
+
+def read_words_and_fallbacks(raw_items, list_file, fallback_csv, media_dir=None, generate_audio=False):
     words = []
     fallback_rows = []
     if list_file:
-        list_path = Path(list_file).expanduser()
+        list_path = resolve_list_file(list_file)
         if not list_path.exists():
             raise FileNotFoundError(
                 f"Word list not found: {list_path}\n"
-                "If the path contains spaces, quote it. Example: --file 'mylists/3-05-2026-青神'"
+                "If the path contains spaces, quote it. Example: --file 'mylists/3-05-2026-青神.txt'"
             )
         for line_number, line in enumerate(list_path.read_text(encoding="utf-8").splitlines(), start=1):
             stripped = line.strip()
@@ -222,7 +281,7 @@ def read_words_and_fallbacks(raw_items, list_file, fallback_csv):
                     raise ValueError(
                         f"{list_path}:{line_number} has {len(values)} CSV fields, expected {len(FALLBACK_FIELDS)}"
                     )
-                row = normalize_csv_row(dict(zip(FALLBACK_FIELDS, values)))
+                row = normalize_csv_row(dict(zip(FALLBACK_FIELDS, values)), media_dir, generate_audio)
                 fallback_rows.append(row)
                 words.append(row["Word"])
             else:
@@ -232,7 +291,7 @@ def read_words_and_fallbacks(raw_items, list_file, fallback_csv):
 
     csv_path = Path(fallback_csv).expanduser() if fallback_csv else sibling_csv_path(list_file)
     if csv_path:
-        for row in read_csv_rows(csv_path):
+        for row in read_csv_rows(csv_path, media_dir, generate_audio):
             fallback_rows.append(row)
             words.append(row["Word"])
 
@@ -251,7 +310,7 @@ def infer_list_name(name, list_file):
         return name
     if not list_file:
         raise ValueError("provide a list name or use --file so the name can be inferred")
-    return Path(list_file).expanduser().name
+    return resolve_list_file(list_file).stem
 
 
 def split_fields(fields_blob):
@@ -455,6 +514,41 @@ def fallback_row_to_note_data(row, model):
     }
 
 
+def field_index(model, field_name):
+    for index, name in enumerate(model_field_names(model)):
+        if name == field_name:
+            return index
+    return None
+
+
+def enrich_note_audio(note_data, model, media_dir, generate_audio):
+    if not generate_audio:
+        return note_data
+
+    fields = list(note_data["fields"])
+    word_index = field_index(model, "Word")
+    audio_index = field_index(model, "Audio")
+    examples_index = field_index(model, "Examples")
+
+    word = fields[word_index].strip() if word_index is not None and word_index < len(fields) else ""
+    if audio_index is not None and audio_index < len(fields) and word and not fields[audio_index].strip():
+        audio_filename = generate_tts_audio(word, media_dir, "word")
+        if audio_filename:
+            fields[audio_index] = f"[sound:{audio_filename}]"
+
+    if examples_index is not None and examples_index < len(fields):
+        examples = fields[examples_index]
+        if examples and "[sound:" not in examples:
+            formatted = format_fallback_examples(examples, media_dir, True)
+            if formatted:
+                fields[examples_index] = formatted
+
+    return {
+        **note_data,
+        "fields": fields,
+    }
+
+
 def load_notes_by_word(connection, models):
     notes_by_word = {}
     for model_id, model in models:
@@ -478,7 +572,7 @@ def load_notes_by_word(connection, models):
     return notes_by_word
 
 
-def build_package(list_name, words, models, notes_by_word, fallback_rows, preserve_guids):
+def build_package(list_name, words, models, notes_by_word, fallback_rows, preserve_guids, media_dir=None, generate_audio=True):
     models_by_id = {model_id: model for model_id, model in models}
     fallback_model_id = select_fallback_model_id(models)
     fallback_rows_by_word = {row["Word"]: row for row in fallback_rows}
@@ -495,6 +589,7 @@ def build_package(list_name, words, models, notes_by_word, fallback_rows, preser
                 missing.append(word)
                 continue
 
+        note_data = enrich_note_audio(note_data, models_by_id[note_data["model_id"]], media_dir, generate_audio)
         guid = note_data["guid"] if preserve_guids and note_data["guid"] else stable_guid(f"ChineseIsEasy::MyLists::{list_name}::{word}")
         note_payloads.append((note_data, guid))
 
@@ -524,7 +619,10 @@ def build_package(list_name, words, models, notes_by_word, fallback_rows, preser
         )
 
     package = genanki.Package(deck)
-    package.media_files = []
+    if media_dir and Path(media_dir).exists():
+        package.media_files = [str(path) for path in sorted(Path(media_dir).glob("*.mp3"))]
+    else:
+        package.media_files = []
     return package, len(note_payloads), missing
 
 
@@ -544,7 +642,7 @@ def output_path_for_list(output_dir, list_name):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Build a small media-free ChineseIsEasy MyLists APKG from an existing local Anki collection."
+        description="Build a small ChineseIsEasy MyLists APKG from an existing local Anki collection."
     )
     parser.add_argument(
         "name",
@@ -569,6 +667,11 @@ def main():
         help="Reuse original note GUIDs. This is useful for updating existing notes, not for creating a separate duplicate deck.",
     )
     parser.add_argument("--dry-run", action="store_true", help="Check which words would be found without writing an APKG")
+    parser.add_argument(
+        "--no-gtts-fallback",
+        action="store_true",
+        help="Do not generate Google TTS audio for empty fallback word/example audio fields.",
+    )
     parser.add_argument("--output-dir", default=str(default_output_dir()), help="Directory where the list folder will be created")
     args = parser.parse_args()
 
@@ -577,8 +680,18 @@ def main():
     except ValueError as error:
         parser.error(str(error))
 
+    output_path = output_path_for_list(args.output_dir, list_name) if not args.dry_run else None
+    media_dir = output_path.parent / "media" if output_path else None
+    generate_audio = not args.dry_run and not args.no_gtts_fallback
+
     try:
-        words, fallback_rows = read_words_and_fallbacks(args.words, args.file, args.fallback_csv)
+        words, fallback_rows = read_words_and_fallbacks(
+            args.words,
+            args.file,
+            args.fallback_csv,
+            media_dir=media_dir,
+            generate_audio=generate_audio,
+        )
     except FileNotFoundError as error:
         raise SystemExit(str(error))
     except ValueError as error:
@@ -606,15 +719,25 @@ def main():
             raise SystemExit(2)
         return
 
-    package, added, missing = build_package(list_name, words, models, notes_by_word, fallback_rows, args.preserve_guids)
+    package, added, missing = build_package(
+        list_name,
+        words,
+        models,
+        notes_by_word,
+        fallback_rows,
+        args.preserve_guids,
+        media_dir=media_dir,
+        generate_audio=generate_audio,
+    )
     if added == 0:
         print_missing(missing)
         raise SystemExit("No requested words were found in the source Anki collection. No APKG was written.")
 
-    output_path = output_path_for_list(args.output_dir, list_name)
     package.write_to_file(str(output_path))
 
     print(f"Exported {added} notes to {output_path}")
+    if generate_audio:
+        print(f"Included {len(package.media_files)} generated audio files")
     if missing:
         print_missing(missing)
 
